@@ -1,0 +1,35 @@
+namespace: mysql
+
+replicaCount: 2
+
+image:
+  repository: mysql
+  tag: "8.0"
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: "1"
+    memory: 2Gi
+
+secrets:
+  data:
+    MYSQL_ROOT_PASSWORD: "MTIzNA=="
+    MYSQL_USER: "YXBwX3VzZXI="
+    MYSQL_PASSWORD: "MTIzNA=="
+
+pvc:
+  storageRequest: 2Gi
+
+affinity:
+  key: app
+  values:
+    - mysql
+
+tolerations:
+  - key: app
+    operator: Equal
+    value: mysql
+    effect: NoSchedule
